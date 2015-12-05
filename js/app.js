@@ -1,9 +1,10 @@
 /* jshint browser: true */
-/* global Snowflakes, CanvasHelper, Debugger, buzz */
+/* global Snowflakes, CanvasHelper, Debugger, buzz, gajus */
 
-var canvas, context, snowflakes, audio, svgMute, svgUnmute;
+var canvas, context, snowflakes, audio, svgMute, svgUnmute, OCE;
 
 window.addEventListener("load", init, false);
+window.addEventListener("resize", resize, false);
 
 function init() {
     if(!CanvasHelper.canvasSupport()) {
@@ -20,7 +21,6 @@ function init() {
     
     canvas.scaleOnHiDPI();
     canvas.resizeCanvas();
-    window.addEventListener("resize", resize, false);
     
     snowflakes = new Snowflakes(canvas.canvas);
     snowflakes.start();
@@ -30,26 +30,38 @@ function init() {
     svgMute = document.getElementById("mute");
     svgUnmute = document.getElementById("unmute");
     
-    svgMute.onclick = function() {
-        audio.play();
+    svgMute.onclick = togglePlay;
+    svgUnmute.onclick = togglePlay;
+    
+    audio = new buzz.sound( "assets/fitzgerald", {
+        formats: [ "ogg", "mp3", "aac" ],
+        autoplay: true,
+        loop: true
+    });
+    
+    audio.bind("play", function() {
         svgMute.style.display = "none";
         svgUnmute.style.display = "block";
-    };
+    });
     
-    svgUnmute.onclick = function() {
-        audio.pause();
+    audio.bind("pause", function() {
         svgMute.style.display = "block";
         svgUnmute.style.display = "none";
-    };
+    });
     
-    audio = new buzz.sound( "/assets/fitzgerald", {
-        formats: [ "ogg", "mp3", "aac" ],
-        loop: true
-    }).fadeIn();
-    svgUnmute.style.display = "block";
+    function togglePlay() {
+        audio.togglePlay();
+    }
+    
+    // Start tracking the orientation change.
+    OCE = gajus.orientationchangeend({});
+
+    // Attach event listener to the "orientationchangeend" event.
+    OCE.on('orientationchangeend', resize);
 }
 
 function resize() {
+    canvas.scaleOnHiDPI();
     canvas.resizeCanvas();
     snowflakes.update(canvas.canvas);
 }
