@@ -20,8 +20,8 @@ function Snowflakes(canvas) {
     
     this.canvas = canvas;
     this.context = this.canvas.getContext("2d");
-    this.W = canvas.width;
-	this.H = canvas.height;
+    this.W = this.canvas.width;
+	this.H = this.canvas.height;
     this.mp = 25;
     this.particles = [];
     this.angle = 0;
@@ -57,6 +57,13 @@ Snowflakes.prototype.draw = function() {
     window.requestAnimationFrame(this.draw.bind(this));
 };
 
+Snowflakes.prototype.update = function(canvas) {
+    this.canvas = canvas;
+    this.context = this.canvas.getContext("2d");
+    this.W = this.canvas.width;
+	this.H = this.canvas.height;
+};
+
 Snowflakes.prototype.drawSnowflakes = function() {
     this.context.clearRect(0, 0, this.W, this.H);
 
@@ -68,12 +75,13 @@ Snowflakes.prototype.drawSnowflakes = function() {
         this.context.arc(p.x, p.y, p.r, 0, Math.PI * 2, true);
     }
     this.context.fill();
-    this.update();
+    this.updateSnowflakes();
 };
 
 // Function to move the snowflakes
-Snowflakes.prototype.update = function() {
+Snowflakes.prototype.updateSnowflakes = function() {
     this.angle += 0.01;
+    
     for(var i = 0; i < this.mp; i++) {
         var p = this.particles[i];
         p.y += Math.cos(this.angle + p.d) + 1 + p.r/2;

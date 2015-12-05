@@ -1,10 +1,126 @@
 * {margin: 0; padding: 0;}
 
+@font-face {
+    font-family: 'Nexa Rust Script L 0';
+    src: url('fonts/NexaRustScriptL-0-Free-webfont.eot');
+    src: url('fonts/NexaRustScriptL-0-Free-webfont.eot?#iefix') format('embedded-opentype'),
+         url('fonts/NexaRustScriptL-0-Free-webfont.woff2') format('woff2'),
+         url('fonts/NexaRustScriptL-0-Free-webfont.woff') format('woff'),
+         url('fonts/NexaRustScriptL-0-Free-webfont.ttf') format('truetype'),
+         url('fonts/NexaRustScriptL-0-Free-webfont.svg#nexa_rust_script_l0regular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
 canvas {
-	display: block;
+	position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
 }
 
 body {
-	/*You can use any kind of background here.*/
-	background: #6b92b9;
+	background: #002c37;
+    width: 100vw;
+    height: 100vh;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+    -webkit-justify-content: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
+}
+
+/* WISHES */
+
+#wishes {
+    text-align: center;
+    color: #ead111;
+    font-family: "Bree Serif";
+    max-width: 650px;
+    max-height: 100vh;
+}
+
+#merry, #happy {
+    font-size: 7vh;
+    line-height: 7vh;
+}
+
+#and, #from {
+    font-size: 3.5vh;
+    color: white;
+    margin: 3vh 0 5vh 0;
+}
+
+#christmas, #newyear {
+    font-size: 12vh;
+    line-height: 13vh;
+    font-family: 'Nexa Rust Script L 0';
+}
+
+/* SNOWFLAKE */
+
+#flake {
+    width: 10vh;
+    margin: 0 15px 15px 15px;
+    display: inline-block;
+    vertical-align: top;
+}
+
+.rotating {
+    -webkit-animation: rotating 10s linear infinite;
+    animation: rotating 10s linear infinite;
+}
+
+/* YEAR */
+
+.year {
+    display: inline-block;
+    height: 70px;
+    line-height: 70px;
+    vertical-align: top;
+    font-size: 4vh;
+    color: white;
+}
+
+@-webkit-keyframes rotating {
+    from {
+        -ms-transform: rotate(0deg);
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg);
+
+    } to {
+        -ms-transform: rotate(360deg);
+        -webkit-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes rotating {
+    from {
+        -ms-transform: rotate(0deg);
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg);
+
+    } to {
+        -ms-transform: rotate(360deg);
+        -webkit-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
+}
+
+/* MUTE BUTTON */
+.audiocontrol {
+    position: fixed;
+    left: 20px;
+    top: 20px;
+    cursor: pointer;
+    display: none;
+    z-index: 2;
 }
