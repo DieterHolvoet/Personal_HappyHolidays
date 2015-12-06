@@ -1,10 +1,27 @@
 /* jshint browser: true */
 /* global Snowflakes, CanvasHelper, Debugger, buzz, gajus */
 
-var canvas, context, snowflakes, audio, svgMute, svgUnmute, OCE;
+var canvas, context, snowflakes, audio, svgMute, svgUnmute, OCE,
+    oldViewportWidth = getViewportWidth(), 
+    oldViewportHeight = getViewportHeight();
 
 window.addEventListener("load", init, false);
 window.addEventListener("resize", resize, false);
+window.setInterval(function() {
+    if(oldViewportHeight !== getViewportHeight() || oldViewportWidth !== getViewportWidth()) {
+        resize();
+        oldViewportHeight = getViewportHeight();
+        oldViewportWidth = getViewportWidth();
+    }
+}, 2000);
+
+function getViewportHeight() {
+    return (window.innerHeight > 0) ? window.innerHeight : screen.height;
+}
+
+function getViewportWidth() {
+    return (window.innerWidth > 0) ? window.innerWidth : screen.width;
+}
 
 function init() {
     if(!CanvasHelper.canvasSupport()) {
